@@ -5,9 +5,8 @@ from app.minesweeper.bo import MinesWeeperBO
 from app.minesweeper.schema import game_schema
 from app.base.exceptions import ValidationError
 
-
 class BaseResource(Resource):
-    
+
     def _response(self, response, status, mimetype='application/json', headers=None):
         response = app.response_class(
             json.dumps(response),
@@ -34,7 +33,6 @@ class GameResource(BaseResource):
         return self._response(game_dict, 201)
 
 api.add_resource(GameResource,'/game',endpoint='Game::CREATE')
-
 
 class MinesWeeperRevealResource(BaseResource):
 

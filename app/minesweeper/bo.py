@@ -2,6 +2,8 @@ from app.minesweeper.model import Game, LEVELS
 from app.base.exceptions import ValidationError
 from app.minesweeper.dao import mine_sweeper_dao
 from app.minesweeper.model import GAME_STATE_STARTED, GAME_STATE_PLAYING, GAME_STATE_LOSE, GAME_STATE_WIN
+from datetime import datetime
+from app.base.time_util import  get_duration
 
 class MinesWeeperBO():
     def create_mines_weeper(self, level):
@@ -32,12 +34,16 @@ class MinesWeeperBO():
             game.message = "The cell ({},{}) is already revelead.".format(row, col)
         elif cell.is_mine:
             game.message = "The cell ({},{}) is a mine. GAME OVER.".format(row, col)
+            game.finished_at = datetime.now()
+            game.duration = get_duration(game.created_at, game.finished_at)
             game.game_state = GAME_STATE_LOSE
         else:
             cell.reveal(game.board.cells, game.board.rows, game.board.cols)
             game.message = "Reveal of the cell ({},{}).".format(row, col)
+            game.duration = get_duration(game.created_at, datetime.now())
             if game.is_finished():
                 game.game_state = GAME_STATE_WIN
+                game.finished_at = datetime.now()
                 game.message = game.message + " YOU HAVE WON."
         mine_sweeper_dao.update_game(game)
         return game

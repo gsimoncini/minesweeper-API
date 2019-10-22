@@ -23,5 +23,7 @@ class GameSchema(Schema):
     gameId = fields.Str(allow_none=True,  attribute="id")
     level = fields.Str(attribute="level_name")
     board = fields.Nested(BoardSchema)
+    finishedAt = fields.DateTime(attribute="finished_at")
+    durarion = fields.Str(attribute="duration")
 
 game_schema = GameSchema()

@@ -15,7 +15,7 @@ GAME_STATE_LOSE = "Lose"
 GAME_STATE_PLAYING = "Playing"
 
 class Game():
-    def __init__(self, level, created_at = None, id = None, game_state = None, board = None, message = None):
+    def __init__(self, level, created_at = None, id = None, game_state = None, board = None, message = None, finished_at = None, duration = None ):
         self.created_at = datetime.strptime(created_at, '%Y-%m-%d %H:%M:%S.%f') if created_at else  datetime.now()
         self.level_name = level
         self.rows, self.cols, self.number_of_mines = LEVELS[level]
@@ -23,11 +23,14 @@ class Game():
         self.game_state = game_state if game_state else  GAME_STATE_STARTED
         self.board = board if board else Board(self.rows, self.cols, self.number_of_mines)
         self.Message = message
+        self.finished_at = datetime.strptime(created_at, '%Y-%m-%d %H:%M:%S.%f') if finished_at else None
+        self.duration = duration if duration else None
 
     @classmethod
     def from_dict(cls, game_dict):
     	return cls(level=game_dict.get('level_name'), created_at=game_dict.get('created_at'), id=game_dict.get('id'), game_state=game_dict.get('game_state'),
-                   board=Board.from_dict(game_dict.get('board')), message=game_dict.get('message'))
+                   board=Board.from_dict(game_dict.get('board')), message=game_dict.get('message'), finished_at = game_dict.get('finished_at'),
+                   duration = game_dict.get('duratio '))
 
     def is_finished(self):
         cells_status = [list(map(lambda cell: cell.is_mine or (not cell.is_mine and cell.revealed), l)) for l in self.board.cells]
