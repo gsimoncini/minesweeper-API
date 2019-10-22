@@ -7,6 +7,7 @@ from app.base.exceptions import ValidationError
 
 
 class BaseResource(Resource):
+    
     def _response(self, response, status, mimetype='application/json', headers=None):
         response = app.response_class(
             json.dumps(response),
@@ -19,8 +20,10 @@ class BaseResource(Resource):
         return response
 
 class GameResource(BaseResource):
+
     def __init__(self):
         self.bo = MinesWeeperBO()
+
     def post(self):
         body = request.get_json()
         if 'level' not in body or not body.get('level'):
@@ -34,6 +37,7 @@ api.add_resource(GameResource,'/game',endpoint='Game::CREATE')
 
 
 class MinesWeeperRevealResource(BaseResource):
+
     def __init__(self):
         self.bo = MinesWeeperBO()
 

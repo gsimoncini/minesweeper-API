@@ -36,6 +36,9 @@ class MinesWeeperBO():
         else:
             cell.reveal(game.board.cells, game.board.rows, game.board.cols)
             game.message = "Reveal of the cell ({},{}).".format(row, col)
+            if game.is_finished():
+                game.game_state = GAME_STATE_WIN
+                game.message = game.message + " YOU HAVE WON."
         mine_sweeper_dao.update_game(game)
         return game
 

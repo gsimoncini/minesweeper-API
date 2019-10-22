@@ -29,6 +29,9 @@ class Game():
     	return cls(level=game_dict.get('level_name'), created_at=game_dict.get('created_at'), id=game_dict.get('id'), game_state=game_dict.get('game_state'),
                    board=Board.from_dict(game_dict.get('board')), message=game_dict.get('message'))
 
+    def is_finished(self):
+        cells_status = [list(map(lambda cell: cell.is_mine or (not cell.is_mine and cell.revealed), l)) for l in self.board.cells]
+        return all([reduce((lambda x, y: x and y), l) for l in cells_status])
 
 class Board():
     def __init__(self, rows, cols, number_of_mines, cells = None):
