@@ -24,6 +24,12 @@ class Game():
         self.board = board if board else Board(self.rows, self.cols, self.number_of_mines)
         self.Message = message
 
+    @classmethod
+    def from_dict(cls, game_dict):
+    	return cls(level=game_dict.get('level_name'), created_at=game_dict.get('created_at'), id=game_dict.get('id'), game_state=game_dict.get('game_state'),
+                   board=Board.from_dict(game_dict.get('board')), message=game_dict.get('message'))
+
+
 class Board():
     def __init__(self, rows, cols, number_of_mines, cells = None):
         self.rows = rows
@@ -31,13 +37,18 @@ class Board():
         self.number_of_mines = number_of_mines
         self.cells = cells if cells else self._create_cells()
 
+    @classmethod
+    def from_dict(cls, board_dict):
+        cells_matrix = board_dict.get('cells')
+        nested_list = [[Cell.from_dict(cell_dict) for cell_dict in rows] for rows in cells_matrix]
+        return cls(rows=board_dict.get('rows'), cols=board_dict.get('cols'), number_of_mines=board_dict.get('number_of_mines'),cells=nested_list)
+
     def _create_cells(self):
         mines_locations = [True] * self.number_of_mines
         mines_locations += [False] * (self.cols * self.rows - self.number_of_mines)
         shuffle(mines_locations)
         cells = [[Cell(row, col, is_mine = mines_locations[col*row])
                         for col in range(self.cols)] for row in range(self.rows)]
-
         for row in cells:
             for cell in row:
                 for neighbour in cell.get_neighbours(cells, self.rows, self.cols):
@@ -61,3 +72,15 @@ class Cell():
             col_offset = self.col + dy
             if (row_offset > -1 and row_offset < rows) and (col_offset > -1 and col_offset < cols):
                 yield cells[row_offset][col_offset]
+
+    def reveal(self, cells, rows, cols):
+        self.revealed = True
+        if self.neighbors_mines == 0:
+            for neighbour in self.get_neighbours(cells, rows, cols):
+                if not neighbour.revealed:
+                    neighbour.reveal(cells, rows, cols)
+
+    @classmethod
+    def from_dict(cls, cell_dict):
+    	return cls(row=cell_dict.get('row'), col=cell_dict.get('col'), is_mine=cell_dict.get('is_mine'), revealed=cell_dict.get('revealed'),
+                   flagged=cell_dict.get('flagged'), neighbors_mines=cell_dict.get('neighbors_mines'))
