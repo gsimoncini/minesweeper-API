@@ -53,3 +53,11 @@ class Cell():
         self.revealed = revealed
         self.flagged = flagged
         self.neighbors_mines = neighbors_mines
+
+    def get_neighbours(self, cells, rows, cols):
+        neighbours = ((-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1))
+        for (dx, dy) in neighbours:
+            row_offset = self.row + dx
+            col_offset = self.col + dy
+            if (row_offset > -1 and row_offset < rows) and (col_offset > -1 and col_offset < cols):
+                yield cells[row_offset][col_offset]
