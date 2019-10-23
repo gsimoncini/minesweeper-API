@@ -15,6 +15,7 @@ GAME_STATE_LOSE = "Lose"
 GAME_STATE_PLAYING = "Playing"
 
 class Game():
+    """ Class that represents the game object. """
     def __init__(self, level, created_at = None, id = None, game_state = None, board = None, message = None, finished_at = None, duration = None ):
         self.created_at = datetime.strptime(created_at, '%Y-%m-%d %H:%M:%S.%f') if created_at else  datetime.now()
         self.level_name = level
@@ -33,10 +34,12 @@ class Game():
                    duration = game_dict.get('duratio '))
 
     def is_finished(self):
+        """ Calculates if the game is finished. The game is finished if all the cells that are not mines are revealed """
         cells_status = [list(map(lambda cell: cell.is_mine or (not cell.is_mine and cell.revealed), l)) for l in self.board.cells]
         return all([reduce((lambda x, y: x and y), l) for l in cells_status])
 
 class Board():
+    """ Class that represents the board object. """
     def __init__(self, rows, cols, number_of_mines, cells = None):
         self.rows = rows
         self.cols = cols
@@ -50,6 +53,9 @@ class Board():
         return cls(rows=board_dict.get('rows'), cols=board_dict.get('cols'), number_of_mines=board_dict.get('number_of_mines'),cells=nested_list)
 
     def _create_cells(self):
+        """ Method that creates the cells of the board based on the amount of rows, cols and mines. It uses the shuffle method of the random library.
+            It calculates the value of the neighbors_mines for every cell in the board.
+         """
         mines_locations = [True] * self.number_of_mines
         mines_locations += [False] * (self.cols * self.rows - self.number_of_mines)
         shuffle(mines_locations)
@@ -63,6 +69,7 @@ class Board():
         return cells
 
 class Cell():
+    """ Class that represents the cell object. """
     def __init__(self, row, col, is_mine, revealed = False, flagged = False, neighbors_mines = 0):
         self.row = row
         self.col = col
@@ -72,6 +79,7 @@ class Cell():
         self.neighbors_mines = neighbors_mines
 
     def get_neighbours(self, cells, rows, cols):
+        """ Method that returns a generator for every neighbor of the cell in order to iterate over the direct neighbors of the cell."""
         neighbours = ((-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1))
         for (dx, dy) in neighbours:
             row_offset = self.row + dx
@@ -80,6 +88,7 @@ class Cell():
                 yield cells[row_offset][col_offset]
 
     def reveal(self, cells, rows, cols):
+        """ Method that reveal cell recursively just if the cell has not mines neighbors."""
         self.revealed = True
         if self.neighbors_mines == 0:
             for neighbour in self.get_neighbours(cells, rows, cols):
