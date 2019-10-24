@@ -3,3 +3,4 @@ Flask-RESTful==0.3.6
 flask-marshmallow==0.7.0
 pymongo[tls]==3.9.0
 dnspython==1.16.0
+uwsgi
