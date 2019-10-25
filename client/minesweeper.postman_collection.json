@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "9a8d34bd-4e88-4703-9815-61037afd28bd",
+		"name": "minesweeper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1dacd9d3-95cf-437b-b1a3-f854c3ff672d",
+						"exec": [
+							"let responseData = pm.response.json();",
+							"console.log(responseData);",
+							"let game_id = responseData.gameId;",
+							"pm.environment.set(\"game_id\", game_id);",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.json().status == \"Started\";",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"level\": \"easy\"\n}"
+				},
+				"url": {
+					"raw": "https://minesweeper-api-flask.herokuapp.com/game",
+					"protocol": "https",
+					"host": [
+						"minesweeper-api-flask",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reveal Cell",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "784eb496-469e-4515-af0b-b851a51c80bb",
+						"exec": [
+							"// example using pm.response.to.have",
+							"pm.test(\"response is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLnViaW9tZS5jb20iLCJpYXQiOjE1Njk4Njk5NTgsImp0aSI6IjU1ZTEyYjFhLTkwNTItNDY5Yy1iMzlkLWEyODBhNjhmNjVjNiIsImV4cCI6MTU2OTg3MTc1OCwidXNlcl9pZCI6IjVkMDZlYjA0LWQ2YmQtNDQxNy1iM2YxLWE1NzFhMTM3NzJlOSJ9.J9zhQ5AmjXlbXw_4onqpdEWO9orvreyI8k4iLUyW7YE",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"row\":7,\n\t\"col\":2\n}"
+				},
+				"url": {
+					"raw": "https://minesweeper-api-flask.herokuapp.com/game/{{game_id}}/reveal",
+					"protocol": "https",
+					"host": [
+						"minesweeper-api-flask",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"game",
+						"{{game_id}}",
+						"reveal"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
