@@ -59,13 +59,23 @@ class Board():
         mines_locations = [True] * self.number_of_mines
         mines_locations += [False] * (self.cols * self.rows - self.number_of_mines)
         shuffle(mines_locations)
-        cells = [[Cell(row, col, is_mine = mines_locations[col*row])
-                        for col in range(self.cols)] for row in range(self.rows)]
+        cells = self.generate_cells(mines_locations)
         for row in cells:
             for cell in row:
                 for neighbour in cell.get_neighbours(cells, self.rows, self.cols):
                     if neighbour.is_mine:
                         cell.neighbors_mines += 1
+        return cells
+
+    def generate_cells(self, mines):
+        cells = []
+        i = 0
+        for row in range(self.rows):
+            r = []
+            for col in range(self.cols):
+                r.append(Cell(row, col, is_mine = mines[i]))
+                i += 1
+            cells.append(r)
         return cells
 
 class Cell():
