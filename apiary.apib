@@ -1,0 +1,568 @@
+FORMAT: 1A
+HOST: https://minesweeper-api-flask.herokuapp.com
+
+# minesweeper-api
+
+Minesweeper is a simple API allowing consumers create and play minesweeper games.
+
+## Game Collection [/game]
+
+
+### Create a New Game [POST]
+
+You may create your own game using this action. It takes a JSON
+object containing a the level of the game you want to create.
+
++ Request (application/json)
+
+        {
+            "level": "easy"
+        }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "board": {
+                    "cells": [
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 0
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 0
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 1
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 1
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 2
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 2
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 3
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 3
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 4
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 4
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 5
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 5
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 3,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 2,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 6
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 6
+                            }
+                        ],
+                        [
+                            {
+                                "col": 0,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 1,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 2,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 3,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 4,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 5,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 6,
+                                "flagged": false,
+                                "isMine": true,
+                                "neighborsMines": 0,
+                                "revealed": false,
+                                "row": 7
+                            },
+                            {
+                                "col": 7,
+                                "flagged": false,
+                                "isMine": false,
+                                "neighborsMines": 1,
+                                "revealed": false,
+                                "row": 7
+                            }
+                        ]
+                    ],
+                    "cols": 8,
+                    "numberOfMines": 10,
+                    "rows": 8
+                },
+                "createdAt": "2019-12-16T17:37:50.815635",
+                "durarion": null,
+                "finishedAt": null,
+                "gameId": "5df7c0ee08e9e043b0ab9f1b",
+                "level": "easy",
+                "status": "Started"
+            }
